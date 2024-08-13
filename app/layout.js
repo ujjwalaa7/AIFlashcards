@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "AI Flashcards",
   description: "Flash cards for AI Learning",
-};
+}
 
 export default function RootLayout({ children }) {
   return (
