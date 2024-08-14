@@ -7,6 +7,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase';
 import 'tailwindcss/tailwind.css';
 
+
+//Testing
 export default function LoginPage() {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
