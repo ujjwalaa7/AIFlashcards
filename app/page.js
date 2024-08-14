@@ -7,6 +7,7 @@ import { auth } from "@/firebase";
 import Link from 'next/link';
 import { Box, Typography, Button, Container } from '@mui/material';
 import 'tailwindcss/tailwind.css';
+import { green } from "@mui/material/colors";
 
 export default function Home() {
   const [user, loading] = useAuthState(auth);
@@ -23,15 +24,46 @@ if (loading) {
 }
 
   return (
-    <Container maxWidth="sm" className="flex flex-col items-center justify-center min-h-screen">
-    <Box display={'flex'} flexDirection={'row'} gap={2}>
+    <Container
+      maxWidth="false"
+      className="flex flex-col items-center justify-center min-h-screen"
+      style={{ 
+        backgroundImage: 'url(/images/zoocanva.png)', 
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        backgroundRepeat: 'no-repeat', 
+        width: '100vw',
+        height: '100vh',
+        // minHeight: '100vh',
+        // width: '85vw',
+        position: 'relative',
+        overflow: 'hidden',
+        marginRight: 0,
+        marginLeft: 0,
+        padding: 0
+      }}
+    >           <Box 
+    display="flex" 
+    flexDirection="row" 
+    gap={3}
+    sx={{ 
+      position: 'absolute', 
+      top: '40%', 
+      left: '50%', 
+      transform: 'translate(-50%, -50%)' 
+    }}
+  >
     <Link href='/login' passHref>
-      <Button variant='contained' color='primary' sx={{ minWidth: '120px' }}>
+      <Button variant='contained' color='primary' sx={{ minWidth: '120px',backgroundColor: '#004d00', // Dark green
+              '&:hover': {
+                backgroundColor: '#003300' }}}>
         Login
       </Button>
     </Link>
     <Link href='/signup' passHref>
-      <Button variant='contained' color='secondary' sx={{ minWidth: '120px' }}>
+      <Button variant='contained' color='secondary' sx={{ minWidth: '120px', backgroundColor: '#004d00', // Dark green
+              '&:hover': {
+                backgroundColor: '#003300'}}}>
         Sign Up
       </Button>
     </Link>
