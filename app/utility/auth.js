@@ -20,7 +20,7 @@ export const signUpWithEmail = async () => {
         console.error('Error singing up with email', error)
         throw error;
     }
-};
+}
 
 export const loginWithEmail = async () => {
     try {
@@ -40,5 +40,3 @@ export const logOut = async () => {
         throw error;
     }
 }
-
-
