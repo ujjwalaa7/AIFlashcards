@@ -28,7 +28,7 @@ export default function SignUpPage() {
       const user = await signUpWithEmail(email, password);
       if (user) {
         alert('Signed up successfully!');
-        router.push('/signin'); 
+        router.push('/login'); 
       }
     } catch (error) {
       alert('Error signing up: ' + error.message);
