@@ -23,7 +23,7 @@ export default function FlashcardsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-8 flex justify-center items-center">
@@ -82,5 +82,5 @@ export default function FlashcardsPage() {
         </Card>
       </div>
     </div>
-  );
+  )
 }

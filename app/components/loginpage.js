@@ -7,8 +7,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase';
 import 'tailwindcss/tailwind.css';
 
-
-//Testing
 export default function LoginPage() {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -34,7 +32,7 @@ export default function LoginPage() {
         } catch (error) {
           alert('Error signing in via Email: ' + error.message);
         }
-      };
+      }
     
       const handleGoogleLogin = async () => {
         try {
@@ -46,7 +44,7 @@ export default function LoginPage() {
         } catch (error) {
           alert('Error signing in with Google: ' + error.message);
         }
-      };
+      }
 
   return (
     <Container maxWidth="sm" className="flex flex-col items-center justify-center min-h-screen">
@@ -98,5 +96,5 @@ export default function LoginPage() {
         </Stack>
       </Box>
     </Container>
-  );
-};
+  )
+}

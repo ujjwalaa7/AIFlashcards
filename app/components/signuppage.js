@@ -77,5 +77,5 @@ export default function SignUpPage() {
         </Stack>
       </Box>
     </Container>
-  );
-};
+  )
+}
