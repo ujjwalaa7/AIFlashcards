@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { auth } from '@/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-const ProtectedROute = ({ children }) => {
+const ProtectedRoute = ({ children }) => {
     const [ user, loading] = useAuthState(auth);
     const router = useRouter();
 
