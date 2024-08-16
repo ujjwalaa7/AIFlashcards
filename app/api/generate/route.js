@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import axios from 'axios';
 
 const systemPrompt = `
-You are a flashcard creator, you take in text and create multiple flashcards from it. Make sure to create exactly 12 flashcards.
+You are a flashcard creator, you take in text and create multiple flashcards from it. Make sure to create the exact number of flashcards requested.
 Both front and back should be one sentence long.
 You should return in the following JSON format:
 {
@@ -15,10 +15,10 @@ You should return in the following JSON format:
 }
 `;
 
-async function generateFlashcards(data) {
+async function generateFlashcards(data, numToGenerate) {
   const messages = [
     { role: 'system', content: systemPrompt },
-    { role: 'user', content: data }
+    { role: 'user', content: `Generate ${numToGenerate} flashcards from the following text: ${data}` }
   ];
 
   const response = await axios.post(
@@ -53,22 +53,22 @@ async function generateFlashcards(data) {
 
 export async function POST(req) {
   try {
-    const data = await req.text();
+    const { text, numToGenerate, existingFlashcards } = await req.json();
     let flashcards;
 
     for (let attempt = 0; attempt < 3; attempt++) {
       try {
-        flashcards = await generateFlashcards(data);
-        if (flashcards.length === 12) break;  
+        flashcards = await generateFlashcards(text, numToGenerate);
+        if (flashcards.length === numToGenerate) break;  
       } catch (error) {
         console.error(`Attempt ${attempt + 1} failed: ${error.message}`);
       }
     }
 
-    if (flashcards && flashcards.length === 12) {
+    if (flashcards && flashcards.length === numToGenerate) {
       return NextResponse.json(flashcards);
     } else {
-      throw new Error('Failed to generate exactly 12 flashcards after 3 attempts');
+      throw new Error(`Failed to generate exactly ${numToGenerate} flashcards after 3 attempts`);
     }
 
   } catch (error) {
