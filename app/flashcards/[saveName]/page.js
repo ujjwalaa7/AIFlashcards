@@ -19,7 +19,7 @@ export default function FlashcardSet() {
   const [newBack, setNewBack] = useState('');
   const [user, setUser] = useState(null); 
   const params = useParams(); 
-  const saveName = decodeURIComponent(params.saveName); 
+  const saveName = params.saveName ? decodeURIComponent(params.saveName.replace(/\+/g, '%20')) : '';
   const router = useRouter();
 
   useEffect(() => {
@@ -29,7 +29,6 @@ export default function FlashcardSet() {
         try {
           const flashcardsDocRef = doc(firestore, 'users', authenticatedUser.uid, 'flashcards', saveName);
           const docSnap = await getDoc(flashcardsDocRef);
-
           if (docSnap.exists()) {
             const flashcardsData = docSnap.data().flashcards || [];
             setFlashcards(flashcardsData);
