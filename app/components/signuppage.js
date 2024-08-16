@@ -36,11 +36,29 @@ export default function SignUpPage() {
   };
 
   return (
-    <Container maxWidth="sm" className="flex flex-col items-center justify-center min-h-screen">
-      <Box className="w-full p-6 bg-white rounded-lg shadow-md">
-        <Typography variant="h4" className="mb-4 text-center">
-          Sign Up
-        </Typography>
+    <Container
+    maxWidth="false"
+    className="flex items-center justify-center min-h-screen"
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      backgroundImage: 'url(/images/trees.png)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundColor: 'darkgreen',
+      backgroundRepeat: 'no-repeat',
+      margin: 0,
+      padding: 0,
+  }}
+>
+<Box
+        className="bg-green rounded-lg shadow-md"
+        style={{ width: '400px', padding: '24px',color:'green', fontFamily:'fantasy'}}
+      >   <Typography variant="h4" className="mb-4 text-center" style={{ fontFamily: 'Times Roman, sans-serif', fontSize: '2rem',fontWeight:'bold' }}>
+                SIGN UP
+            </Typography>
         <Stack spacing={2} className="mb-4">
         <TextField
           label="Email"
@@ -64,6 +82,15 @@ export default function SignUpPage() {
           color="primary"
           fullWidth
           onClick={handleSignUp}
+          sx={{
+            backgroundColor: 'green',
+            color: 'white',
+            '&:hover': {
+              backgroundColor: 'teal', 
+              opacity: 0.8,
+            },
+          }}
+
         >
             Sign Up
         </Button>
@@ -71,7 +98,16 @@ export default function SignUpPage() {
             variant="contained"
             color="secondary"
             fullWidth
-            onClick={() => router.push('/')}>
+            onClick={() => router.push('/')}
+            sx={{
+              backgroundColor: 'green',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'teal', 
+                opacity: 0.8,
+              },
+            }}
+>
                 Home Page
             </Button>
         </Stack>

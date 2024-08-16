@@ -6,6 +6,7 @@ import { TextField, Button, Container, Typography, Box, Stack } from '@mui/mater
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase';
 import 'tailwindcss/tailwind.css';
+import { FormatBold } from '@mui/icons-material';
 
 export default function LoginPage() {
     const [ email, setEmail ] = useState('');
@@ -46,55 +47,90 @@ export default function LoginPage() {
         }
       }
 
-  return (
-    <Container maxWidth="sm" className="flex flex-col items-center justify-center min-h-screen">
-      <Box className="w-full p-6 bg-white rounded-lg shadow-md">
-        <Typography variant="h4" className="mb-4 text-center">
-          Login
-        </Typography>
-        <Stack spacing={2} className="mb-4">
-        <TextField
-          label="Email"
-          variant="outlined"
-          fullWidth
-          className="mb-4"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          label="Password"
-          variant="outlined"
-          type="password"
-          fullWidth
-          className="mb-4"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handleEmailLogin}
-        >
-            Login
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={handleGoogleLogin}
-          >
-            <img src='/images/google-logo.png' alt='Google Logo' style={{ width: '20px', marginRight: '8px', borderRadius: '35%' }} />
-        </Button>
-        <Button 
-            variant="contained"
-            color="secondary"
-            fullWidth
-            onClick={() => router.push('/')}>
-                Home Page
-            </Button>
-        </Stack>
-      </Box>
+      return (
+        <Container
+        maxWidth="false"
+        className="flex items-center justify-center min-h-screen"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          backgroundImage: 'url(/images/trees.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundColor: 'darkgreen',
+          backgroundRepeat: 'no-repeat',
+          margin: 0,
+          padding: 0,
+      }}
+    >
+           <Box
+        className="bg-green rounded-lg shadow-md"
+        style={{ width: '400px', padding: '24px',color:'green', fontFamily:'fantasy', FormatBold }}
+      >   <Typography variant="h4" className="mb-4 text-center" style={{ fontFamily: 'Times Roman, sans-serif', fontSize: '2rem',fontWeight:'bold' }}>
+                LOGIN
+            </Typography>
+            <Stack spacing={2} className="mb-4">
+                <TextField
+                    label="Email"
+                    variant="outlined"
+                    fullWidth
+                    className="mb-4"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <TextField
+                    label="Password"
+                    variant="outlined"
+                    type="password"
+                    fullWidth
+                    className="mb-4"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                    variant="contained"
+                    fullWidth
+                    onClick={handleEmailLogin}
+                    sx={{
+                      backgroundColor: 'green',
+                      color: 'white',
+                      '&:hover': {
+                        backgroundColor: 'teal', 
+                        opacity: 0.8,
+                      },
+                    }}
+                >
+                    Login
+                </Button>
+                <Button
+                    variant="contained"
+                    fullWidth
+                    onClick={handleGoogleLogin}
+                    style={{ backgroundColor: 'green', color: 'white' }}
+                >
+                    <img src='/images/google-logo.png' alt='Google Logo' style={{ width: '20px', marginRight: '8px', borderRadius: '35%' }} />
+                    Sign in with Google
+                </Button>
+                <Button
+                    variant="contained"
+                    fullWidth
+                    onClick={() => router.push('/')}
+                    // style={{ backgroundColor: 'green', color: 'white' }}
+                    sx={{
+                      backgroundColor: 'green',
+                      color: 'white',
+                      '&:hover': {
+                        backgroundColor: 'teal', 
+                        opacity: 0.8,
+                      },
+                    }}
+                >
+                    Home Page
+                </Button>
+            </Stack>
+        </Box>
     </Container>
   )
 }
