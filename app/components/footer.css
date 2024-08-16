@@ -1,0 +1,92 @@
+footer {
+  background-color: #2a5410;
+  color: #ecf0f1;
+  padding: 20px 0;
+  text-align: center;
+}
+
+#back-to-top {
+  background-color: #003300;
+  color: #ecf0f1;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#back-to-top:hover {
+  background-color: #004d00;
+}
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  background-color: #003300;
+  color: #ecf0f1;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 350px;
+  background-color: #3f7d23;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  border-top: 1px solid #ecf0f1;
+  padding-top: 10px;
+  font-family: 'Times New Roman', Times, serif;
+}
