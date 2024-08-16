@@ -1,6 +1,5 @@
 'use client'
-
-import { useState } from 'react'
+import React, { useState } from 'react'
 import {
   Container,
   TextField,
@@ -8,12 +7,14 @@ import {
   Typography,
   Box,
   Grid,
-  Card,
-  CardContent,
   IconButton,
   Modal,
-  Divider
+  Divider,
+  FormControlLabel,
+  Checkbox
 } from '@mui/material'
+import { auth, firestore } from '@/firebase'
+import { doc, setDoc } from 'firebase/firestore';
 import EditIcon from '@mui/icons-material/Edit'
 import SaveIcon from '@mui/icons-material/Save'
 import CancelIcon from '@mui/icons-material/Cancel'
@@ -21,6 +22,7 @@ import CancelIcon from '@mui/icons-material/Cancel'
 export default function Generate() {
   const [text, setText] = useState('')
   const [flashcards, setFlashcards] = useState([])
+  const [selectedFlashcards, setSelectedFlashcards] = useState([])
   const [editIndex, setEditIndex] = useState(null)
   const [editFront, setEditFront] = useState('')
   const [editBack, setEditBack] = useState('')
@@ -31,19 +33,46 @@ export default function Generate() {
       alert('Please enter some text to generate flashcards.')
       return
     }
-
+  
     try {
+      const unselectedIndices = flashcards.map((_, index) => index)
+        .filter(index => !selectedFlashcards.includes(index))
+      const numToGenerate = unselectedIndices.length || 12 // Generate 12 if all are selected
+  
       const response = await fetch('/api/generate', {
         method: 'POST',
-        body: text,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text,
+          numToGenerate,
+        }),
       })
-
+  
       if (!response.ok) {
         throw new Error('Failed to generate flashcards')
       }
-
-      const data = await response.json()
-      setFlashcards(data)
+  
+      const newFlashcards = await response.json()
+  
+      setFlashcards(prevCards => {
+        const selectedCards = prevCards.filter((_, index) => selectedFlashcards.includes(index))
+        const updatedCards = [...selectedCards, ...newFlashcards]
+        
+        // Update selected flashcards
+        setSelectedFlashcards(prev => {
+          if (prevCards.length === 0) {
+            // If there were no cards before, select all new cards
+            return Array.from({ length: newFlashcards.length }, (_, i) => i)
+          } else {
+            // Keep current selection and don't select new cards
+            return prev.filter(index => index < selectedCards.length)
+          }
+        })
+        return updatedCards
+      })
+  
     } catch (error) {
       console.error('Error generating flashcards:', error)
       alert('An error occurred while generating flashcards. Please try again.')
@@ -65,9 +94,44 @@ export default function Generate() {
     setOpen(false)
   }
 
+  const handleSaveSelected = async () => {
+    const user = auth.currentUser
+    if (!user) {
+      alert('You must be logged in to save flashcards.')
+      return
+    }
+
+    const userFlashcardsRef = doc(firestore, 'users', user.uid, 'flashcards', 'generated')
+
+    try {
+      await setDoc(userFlashcardsRef, { flashcards: selectedFlashcards }, { merge: true })
+      alert('Selected flashcards saved successfully!')
+    } catch (error) {
+      console.error('Error saving flashcards:', error)
+      alert('An error occurred while saving flashcards. Please try again.')
+    }
+  }
+  const handleSelectAll = () => {
+    if (selectedFlashcards.length === flashcards.length) {
+      setSelectedFlashcards([]) // Deselect all if all are currently selected
+    } else {
+      setSelectedFlashcards(flashcards.map((_, index) => index)) // Select all
+    }
+  }
+
   const handleCancel = () => {
     setEditIndex(null)
     setOpen(false)
+  }
+  
+  const handleSelectFlashcard = (index) => {
+    setSelectedFlashcards(prev => {
+      if (prev.includes(index)) {
+        return prev.filter(i => i !== index)
+      } else {
+        return [...prev, index]
+      }
+    })
   }
 
   return (
@@ -109,13 +173,16 @@ export default function Generate() {
             Generated Flashcards
           </Typography>
           <Divider
-          sx={{
-            my: 2,
-            height: 2,
-            background: 'linear-gradient(to right, #3f51b5, #f50057)',
-            borderRadius: 2,
-          }}
-        />
+            sx={{
+              my: 2,
+              height: 2,
+              background: 'linear-gradient(to right, #3f51b5, #f50057)',
+              borderRadius: 2,
+            }}
+          />    
+          <Button onClick={handleSelectAll} sx={{ mb: 2 }}>
+            {selectedFlashcards.length === flashcards.length ? 'Deselect All' : 'Select All'}
+          </Button>
           <Grid container spacing={2}>
             {flashcards.map((flashcard, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
@@ -135,10 +202,31 @@ export default function Generate() {
                       </IconButton>
                     </div>
                   </div>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={selectedFlashcards.includes(index)}
+                        onChange={() => handleSelectFlashcard(index)}
+                      />
+                    }
+                    label="Select"
+                  />
                 </div>
               </Grid>
             ))}
           </Grid>
+          {selectedFlashcards.length > 0 && (
+            <Box sx={{ mt: 4 }}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSaveSelected}
+                fullWidth
+              >
+                Save Selected Flashcards ({selectedFlashcards.length})
+              </Button>
+            </Box>
+          )}
         </Box>
       )}
       <Modal
