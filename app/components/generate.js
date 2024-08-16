@@ -87,7 +87,7 @@ export default function Generate() {
         <TextField
           value={text}
           onChange={(e) => setText(e.target.value)}
-          label="Enter text"
+          label="Write About a Topic"
           fullWidth
           multiline
           rows={4}

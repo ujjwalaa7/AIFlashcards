@@ -15,51 +15,62 @@ You should return in the following JSON format:
 }
 `;
 
+async function generateFlashcards(data) {
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: data }
+  ];
+
+  const response = await axios.post(
+    'https://api.groq.com/openai/v1/chat/completions',
+    {
+      messages: messages,
+      model: 'llama3-8b-8192',
+      max_tokens: 3000, 
+      temperature: 0.7,
+      stop: null
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GROQ_API_KEY}`,
+      },
+    }
+  );
+
+  const completion = response.data.choices[0].message;
+
+  if (completion.content) {
+    const jsonStart = completion.content.indexOf('{');
+    const jsonEnd = completion.content.lastIndexOf('}') + 1;
+    if (jsonStart !== -1 && jsonEnd !== -1) {
+      const jsonString = completion.content.slice(jsonStart, jsonEnd);
+      return JSON.parse(jsonString).flashcards;
+    }
+  }
+  throw new Error('JSON format not found in the response');
+}
+
 export async function POST(req) {
   try {
     const data = await req.text();
-    const messages = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: data }
-    ];
+    let flashcards;
 
-    const response = await axios.post(
-      'https://api.groq.com/openai/v1/chat/completions',
-      {
-        messages: messages,
-        model: 'llama3-8b-8192',
-        max_tokens: 1024,
-        temperature: 0.7,
-        stop: null
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GROQ_API_KEY}`,
-        },
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        flashcards = await generateFlashcards(data);
+        if (flashcards.length === 12) break;  
+      } catch (error) {
+        console.error(`Attempt ${attempt + 1} failed: ${error.message}`);
       }
-    )
-
-    const completion = response.data.choices[0].message;
-
-    if (completion.content) {
-      // Extract the JSON string from the content
-      const jsonStart = completion.content.indexOf('{');
-      const jsonEnd = completion.content.lastIndexOf('}') + 1;
-      if (jsonStart !== -1 && jsonEnd !== -1) {
-        const jsonString = completion.content.slice(jsonStart, jsonEnd);
-        try {
-          const flashcards = JSON.parse(jsonString);
-          return NextResponse.json(flashcards.flashcards);
-        } catch (jsonError) {
-          throw new Error('Failed to parse JSON response from LLaMA API');
-        }
-      } else {
-        throw new Error('JSON format not found in the response');
-      }
-    } else {
-      throw new Error('Unexpected response format');
     }
+
+    if (flashcards && flashcards.length === 12) {
+      return NextResponse.json(flashcards);
+    } else {
+      throw new Error('Failed to generate exactly 12 flashcards after 3 attempts');
+    }
+
   } catch (error) {
     console.error('Error querying LLaMA API:', error.message);
     if (error.response) {
