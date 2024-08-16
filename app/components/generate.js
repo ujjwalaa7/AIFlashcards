@@ -8,8 +8,6 @@ import {
   Typography,
   Box,
   Grid,
-  Card,
-  CardContent,
   IconButton,
   Modal,
   Divider
@@ -57,12 +55,33 @@ export default function Generate() {
     setOpen(true)
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const updatedFlashcards = [...flashcards]
-    updatedFlashcards[editIndex] = { front: editFront, back: editBack }
-    setFlashcards(updatedFlashcards)
-    setEditIndex(null)
-    setOpen(false)
+    if (editIndex !== null) {
+      updatedFlashcards[editIndex] = { front: editFront, back: editBack }
+      setFlashcards(updatedFlashcards)
+      setEditIndex(null)
+      setOpen(false)
+    }
+
+    try {
+      const response = await fetch('/api/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedFlashcards),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to save flashcards')
+      }
+
+      alert('Flashcards saved successfully!')
+    } catch (error) {
+      console.error('Error saving flashcards:', error)
+      alert('An error occurred while saving flashcards. Please try again.')
+    }
   }
 
   const handleCancel = () => {
@@ -109,13 +128,13 @@ export default function Generate() {
             Generated Flashcards
           </Typography>
           <Divider
-          sx={{
-            my: 2,
-            height: 2,
-            background: 'linear-gradient(to right, #3f51b5, #f50057)',
-            borderRadius: 2,
-          }}
-        />
+            sx={{
+              my: 2,
+              height: 2,
+              background: 'linear-gradient(to right, #3f51b5, #f50057)',
+              borderRadius: 2,
+            }}
+          />
           <Grid container spacing={2}>
             {flashcards.map((flashcard, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
@@ -139,6 +158,15 @@ export default function Generate() {
               </Grid>
             ))}
           </Grid>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleSave}
+            fullWidth
+            sx={{ mt: 2 }}
+          >
+            Save All Flashcards
+          </Button>
         </Box>
       )}
       <Modal
@@ -159,7 +187,7 @@ export default function Generate() {
             p: 4,
           }}
         >
-          <Typography id="edit-flashcard-modal" variant="h6" component="h2" sx = {{ mb: 2 }}>
+          <Typography id="edit-flashcard-modal" variant="h6" component="h2" sx={{ mb: 2 }}>
             Edit Flashcard
           </Typography>
           <TextField

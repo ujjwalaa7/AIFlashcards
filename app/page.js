@@ -15,7 +15,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!loading && user) {
-        router.push('/flashcards');
+        router.push('/generate');
     }
 }, [ user, loading, router ]);
 

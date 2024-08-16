@@ -1,86 +1,45 @@
-'use client'
-import { useState } from 'react';
-import axios from 'axios';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
+'use client';
 
-export default function FlashcardsPage() {
-  const [topic, setTopic] = useState('');
-  const [flashcards, setFlashcards] = useState([]);
-  const [loading, setLoading] = useState(false);
+import { useEffect, useState } from 'react'
+import { Container, Typography, Grid, Card, CardContent } from '@mui/material'
 
-  const generateFlashcards = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post('/api/generate', topic);
-      setFlashcards(response.data);
-    } catch (error) {
-      console.error('Error generating flashcards:', error);
-    } finally {
-      setLoading(false);
+export default function Flashcards() {
+  const [flashcards, setFlashcards] = useState([])
+
+  useEffect(() => {
+    const fetchFlashcards = async () => {
+      try {
+        const response = await fetch('/api/flashcards')
+        if (!response.ok) {
+          throw new Error('Failed to fetch flashcards')
+        }
+        const data = await response.json()
+        setFlashcards(data)
+      } catch (error) {
+        console.error('Error fetching flashcards:', error)
+      }
     }
-  }
+
+    fetchFlashcards()
+  }, [])
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8 flex justify-center items-center">
-      <div className="w-full max-w-md">
-        <Card className="shadow-lg">
-          <CardContent>
-            <Typography variant="h5" component="h2" className="mb-4">
-              Generate Flashcards
-            </Typography>
-            
-            <TextField
-              id="topic"
-              label="Topic"
-              variant="outlined"
-              fullWidth
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              className="mb-4"
-            />
-            
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={generateFlashcards}
-              disabled={loading}
-              className="mt-2"
-            >
-              {loading ? <CircularProgress size={24} color="inherit" /> : 'Generate Flashcards'}
-            </Button>
-
-            {flashcards.length > 0 && (
-              <div className="mt-6">
-                <Typography variant="h6" component="h3" className="mb-4">
-                  Flashcards
-                </Typography>
-                <ul className="space-y-4">
-                  {flashcards.map((card, index) => (
-                    <li key={index}>
-                      <Card className="bg-gray-50">
-                        <CardContent>
-                          <Typography variant="body1" className="font-semibold">
-                            Q: {card.front}
-                          </Typography>
-                          <Typography variant="body2" className="mt-2">
-                            A: {card.back}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+    <Container maxWidth="md">
+      <Typography variant="h4" component="h1" gutterBottom>
+        Saved Flashcards
+      </Typography>
+      <Grid container spacing={2}>
+        {flashcards.map((flashcard, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6">{flashcard.front}</Typography>
+                <Typography variant="body2">{flashcard.back}</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   )
 }
