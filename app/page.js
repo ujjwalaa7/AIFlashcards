@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Box, Typography, Button, Container } from '@mui/material';
 import 'tailwindcss/tailwind.css';
 import { green } from "@mui/material/colors";
+import Footer from "../app/footer"
 
 export default function Home() {
   const [user, loading] = useAuthState(auth);
@@ -22,8 +23,8 @@ export default function Home() {
 if (loading) {
   return <div>Loading...</div>;  
 }
-
   return (
+    <div>
     <Container
       maxWidth="false"
       className="flex flex-col items-center justify-center min-h-screen"
@@ -32,7 +33,7 @@ if (loading) {
         backgroundSize: 'cover', 
         backgroundPosition: 'center', 
         backgroundRepeat: 'no-repeat', 
-        width: '100vw',
+        width: '99vw',
         height: '100vh',
         // minHeight: '100vh',
         // width: '85vw',
@@ -42,7 +43,8 @@ if (loading) {
         marginLeft: 0,
         padding: 0
       }}
-    >           <Box 
+    >       
+        <Box 
     display="flex" 
     flexDirection="row" 
     gap={3}
@@ -69,5 +71,8 @@ if (loading) {
     </Link>
   </Box>
   </Container>
+  <Footer />
+  </div>
+
   )
 }
