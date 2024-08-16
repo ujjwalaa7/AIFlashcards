@@ -26,6 +26,7 @@ export default function Generate() {
   const [editIndex, setEditIndex] = useState(null)
   const [editFront, setEditFront] = useState('')
   const [editBack, setEditBack] = useState('')
+  const [saveName, setSaveName] = useState('')
   const [open, setOpen] = useState(false)
 
   const handleSubmit = async () => {
@@ -101,11 +102,19 @@ export default function Generate() {
       return
     }
 
-    const userFlashcardsRef = doc(firestore, 'users', user.uid, 'flashcards', 'generated')
+    if (!saveName.trim()) {
+      alert('Please enter a name to save the flashcards.')
+      return
+    }
+
+    const userFlashcardsRef = doc(firestore, 'users', user.uid, 'flashcards', saveName)
 
     try {
-      await setDoc(userFlashcardsRef, { flashcards: selectedFlashcards }, { merge: true })
-      alert('Selected flashcards saved successfully!')
+      const selectedFlashcardsData = selectedFlashcards.map(index => flashcards[index]);
+
+      await setDoc(userFlashcardsRef, { flashcards: selectedFlashcardsData }, { merge: true })
+      alert(`Flashcards saved successfully under "${saveName}"!`)
+      setSaveName('') // Clear the save name after saving
     } catch (error) {
       console.error('Error saving flashcards:', error)
       alert('An error occurred while saving flashcards. Please try again.')
@@ -217,12 +226,20 @@ export default function Generate() {
           </Grid>
           {selectedFlashcards.length > 0 && (
             <Box sx={{ mt: 4 }}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSaveSelected}
-                fullWidth
-              >
+            <TextField
+              value={saveName}
+              onChange={(e) => setSaveName(e.target.value)}
+              label="Enter a name for saving"
+              fullWidth
+              variant="outlined"
+              sx={{ mb: 2 }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSaveSelected}
+              fullWidth
+            >
                 Save Selected Flashcards ({selectedFlashcards.length})
               </Button>
             </Box>

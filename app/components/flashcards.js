@@ -1,86 +1,67 @@
-'use client'
-import { useState } from 'react';
-import axios from 'axios';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
+'use client';
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { auth, firestore } from '@/firebase';
+import { useRouter } from 'next/navigation';
+import { List, ListItem, ListItemText, Typography, Box } from '@mui/material';
+import { onAuthStateChanged } from 'firebase/auth';
 
-export default function FlashcardsPage() {
-  const [topic, setTopic] = useState('');
-  const [flashcards, setFlashcards] = useState([]);
-  const [loading, setLoading] = useState(false);
+export default function FlashCards() {
+  const [sets, setSets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  const generateFlashcards = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post('/api/generate', topic);
-      setFlashcards(response.data);
-    } catch (error) {
-      console.error('Error generating flashcards:', error);
-    } finally {
+  useEffect(() => {
+    const listSets = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          console.log("User is authenticated:", user.uid);
+          const setsCollectionRef = collection(firestore, 'users', user.uid, 'flashcards');
+          const snapshot = await getDocs(setsCollectionRef);
+
+          if (!snapshot.empty) {
+            const setNames = snapshot.docs.map(doc => doc.id); // Get the names of each set
+            setSets(setNames);
+          } else {
+            console.log("No flashcard sets found for this user.");
+            setSets([]);
+          }
+        } catch (error) {
+          setSets([]);
+        }
+      } else {
+        setSets([]);
+      }
       setLoading(false);
-    }
+    });
+
+    return () => listSets(); 
+  }, []);
+
+  if (loading) {
+    return <p>Loading flashcard sets...</p>;
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8 flex justify-center items-center">
-      <div className="w-full max-w-md">
-        <Card className="shadow-lg">
-          <CardContent>
-            <Typography variant="h5" component="h2" className="mb-4">
-              Generate Flashcards
-            </Typography>
-            
-            <TextField
-              id="topic"
-              label="Topic"
-              variant="outlined"
-              fullWidth
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              className="mb-4"
-            />
-            
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={generateFlashcards}
-              disabled={loading}
-              className="mt-2"
+    <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        Saved Flashcard Sets
+      </Typography>
+      <List>
+        {sets.length > 0 ? (
+          sets.map((setName, index) => (
+            <ListItem 
+              button 
+              key={index} 
+              onClick={() => router.push(`/flashcards/${setName}`)}
             >
-              {loading ? <CircularProgress size={24} color="inherit" /> : 'Generate Flashcards'}
-            </Button>
-
-            {flashcards.length > 0 && (
-              <div className="mt-6">
-                <Typography variant="h6" component="h3" className="mb-4">
-                  Flashcards
-                </Typography>
-                <ul className="space-y-4">
-                  {flashcards.map((card, index) => (
-                    <li key={index}>
-                      <Card className="bg-gray-50">
-                        <CardContent>
-                          <Typography variant="body1" className="font-semibold">
-                            Q: {card.front}
-                          </Typography>
-                          <Typography variant="body2" className="mt-2">
-                            A: {card.back}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  )
+              <ListItemText primary={setName} />
+            </ListItem>
+          ))
+        ) : (
+          <Typography>No flashcard sets available.</Typography>
+        )}
+      </List>
+    </Box>
+  );
 }
