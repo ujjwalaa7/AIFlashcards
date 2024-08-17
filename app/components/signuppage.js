@@ -6,7 +6,6 @@ import { signUpWithEmail } from '../utility/auth';
 import { Box, Typography, TextField, Button, Stack, Container} from '@mui/material';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase';
-import 'tailwindcss/tailwind.css';
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('');

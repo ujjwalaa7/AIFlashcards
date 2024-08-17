@@ -121,6 +121,7 @@ export default function Generate() {
       alert('An error occurred while saving flashcards. Please try again.')
     }
   }
+
   const handleSelectAll = () => {
     if (selectedFlashcards.length === flashcards.length) {
       setSelectedFlashcards([]) // Deselect all if all are currently selected
@@ -160,8 +161,9 @@ export default function Generate() {
       margin: 0,
       padding: 0,
   }}>
-      <Box sx={{ my: 3 }}>
-        <Typography variant="h4" component="h1" gutterBottom sx={{fontWeight: 'bold', color: 'white' }}>
+    <Container maxWidth='md'> 
+    <Box sx={{ my: 3 }}>
+        <Typography variant="h4" justifyContent= 'center' component="h1" gutterBottom sx={{fontWeight: 'bold', color: 'white' }}>
           GENERATE FLASHCARDS
         </Typography>
         <Divider
@@ -210,7 +212,7 @@ export default function Generate() {
       {flashcards.length > 0 && (
         <Box sx={{ mt: 4 }}>
           <Typography variant="h5" component="h2" gutterBottom sx={{ color: 'white' }}>
-            Generated Flashcards
+            GENERATED FLASHCARDS
           </Typography>
           <Divider
             sx={{
@@ -352,6 +354,7 @@ export default function Generate() {
           </Box>
         </Box>
       </Modal>
+    </Container>
     </Container>
   )
 }

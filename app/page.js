@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/firebase";
 import Link from 'next/link';
 import { Box, Typography, Button, Container, Divider } from '@mui/material';
-import 'tailwindcss/tailwind.css';
 import Footer from "./components/footer";
 
 export default function Home() {

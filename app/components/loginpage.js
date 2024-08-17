@@ -6,7 +6,6 @@ import { loginWithGoogle, loginWithEmail } from '../utility/auth';
 import { TextField, Button, Container, Typography, Box, Stack } from '@mui/material';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase';
-import 'tailwindcss/tailwind.css';
 import { FormatBold } from '@mui/icons-material';
 
 export default function LoginPage() {
