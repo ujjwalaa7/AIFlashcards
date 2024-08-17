@@ -6,8 +6,7 @@ import '../navbar.css';
 import { useState, useEffect } from 'react';
 import { logOut } from '../utility/auth';
 import { useRouter } from 'next/navigation'; 
-import { ImageAspectRatioRounded } from '@mui/icons-material';
-
+import "./navbar.css"
 
 export default function Navbar() {
   const router = useRouter(); 
