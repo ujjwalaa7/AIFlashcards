@@ -10,8 +10,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { onAuthStateChanged } from 'firebase/auth';
+import ProtectedRoute from '../../components/protectedroute';
 
-export default function FlashcardSet() {
+function FlashcardSet() {
   const [flashcards, setFlashcards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingIndex, setEditingIndex] = useState(null);
@@ -224,4 +225,12 @@ export default function FlashcardSet() {
       </Box>
     </Box>
   )
+}
+
+export default function FlashcardSetPage() {
+  return (
+    <ProtectedRoute>
+      <FlashcardSet />
+    </ProtectedRoute>
+  );
 }
