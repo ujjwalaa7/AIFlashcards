@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
@@ -11,8 +13,36 @@ import ListItemDecorator from '@mui/joy/ListItemDecorator';
 import Typography from '@mui/joy/Typography';
 import Check from '@mui/icons-material/Check';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import getStripe from '../utility/get-stripe';
+// import { getStripe } from '@stripe/stripe-js';
 
 export default function PriceBox() {
+
+  const handleSubmit = async () => {
+    const checkoutSession = await fetch('/api/checkout_sessions', {
+      method: 'POST',
+      headers: { origin: 'http://localhost:3000' },
+    })
+    // console.log("Success?")
+    const checkoutSessionJson = await checkoutSession.json()
+    
+    console.log('Stripe API Key:', process.env.NEXT_PUBLIC_STRIPE_API_KEY)
+    // console.log("got here")
+    const stripe = await getStripe()
+
+    // console.log(stripe)
+    const {error} = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id,
+    })
+  
+    console.log(error)
+    if (error) {
+      // console.log("oh no")
+      console.warn(error.message)
+    }
+    // console.log("oh yea")
+  }
+
     // Style for the strikethrough list items
     const listItemStyle = {
         textDecoration: 'line-through',
@@ -117,7 +147,7 @@ export default function PriceBox() {
 
           </Typography>
 
-          <Button endDecorator={<KeyboardArrowRight />}>Start now</Button>
+          <Button onClick={handleSubmit} endDecorator={<KeyboardArrowRight />}>Start now</Button>
         </CardActions>
       </Card>
     </Box>
