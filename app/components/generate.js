@@ -259,47 +259,21 @@ export default function Generate() {
               </Grid>
             ))}
           </Grid>
-          {selectedFlashcards.length > 0 && (
-            <Box sx={{ mt: 4 }}>
-            {/* <TextField
-              value={saveName}
-              onChange={(e) => setSaveName(e.target.value)}
-              label="Enter a name for saving"
-              fullWidth
-              variant="outlined"
-              sx={{ mb: 2, '& .MuiInputLabel-root': { color: 'white' }, '& .MuiOutlinedInput-root': { color: 'white' }, '& .MuiInputBase-input': { color: 'white' } }}
-            /> */}
-            <TextField
-      value={text}
-       onChange={(e) => setText(e.target.value)}
-      label="Enter a name for saving"
-      fullWidth
-      multiline
-      rows={4}
-      variant="outlined"
-      sx={{
-       mb: 2,
-        '& .MuiInputLabel-root': { color: 'white' },
-        '& .MuiOutlinedInput-root': {
-        color: 'white',
-      ' & fieldset': {
-          borderColor: 'white',
-        },
-        '&:hover fieldset': {
-        borderColor: 'white',
-        },
-        '&.Mui-focused fieldset': {
-         borderColor: 'white',
-       },
-      },
-      '& .MuiInputBase-input': { color: 'white' },
-      }}
-    />
-            <Button
-          variant="contained"
-          onClick={handleSubmit}
+          <TextField
+          value={saveName}
+          onChange={(e) => setSaveName(e.target.value)}
+          label="Enter a name for saving"
           fullWidth
-          sx={{backgroundColor: 'darkgreen', color: 'white', '&:hover': { backgroundColor: 'green' } }}
+          variant="outlined"
+          sx={{ mb:1, mt:2, '& .MuiInputLabel-root': { color: 'white' }, '& .MuiOutlinedInput-root': { color: 'white' }, '& .MuiInputBase-input': { color: 'white' } }}
+        />
+              {selectedFlashcards.length > 0 && (
+                <Box sx={{ mt: 4 }}>
+                <Button
+              variant="contained"
+              onClick={handleSaveSelected}
+              fullWidth
+              sx={{backgroundColor: 'darkgreen', color: 'white', '&:hover': { backgroundColor: 'green' } }}
         >
           Save Selected Flashcards
         </Button>
