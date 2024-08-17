@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useState } from 'react'
 import {
   Container,
@@ -188,7 +189,7 @@ export default function Generate() {
               background: 'linear-gradient(to right, #3f51b5, #f50057)',
               borderRadius: 2,
             }}
-          />    
+          />
           <Button onClick={handleSelectAll} sx={{ mb: 2 }}>
             {selectedFlashcards.length === flashcards.length ? 'Deselect All' : 'Select All'}
           </Button>

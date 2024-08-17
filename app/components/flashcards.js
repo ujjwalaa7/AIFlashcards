@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { auth, firestore } from '@/firebase';
 import { useRouter } from 'next/navigation';
-import { List, ListItem, ListItemText, Typography, Box } from '@mui/material';
+import { List, ListItem, ListItemText, Typography, Box, CircularProgress, Card, CardContent } from '@mui/material';
 import { onAuthStateChanged } from 'firebase/auth';
 
 export default function FlashCards() {
@@ -33,13 +33,16 @@ export default function FlashCards() {
         setSets([]);
       }
       setLoading(false);
-    });
-
+    })
     return () => listSets(); 
-  }, []);
+  }, [])
 
   if (loading) {
-    return <p>Loading flashcard sets...</p>;
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
@@ -50,18 +53,22 @@ export default function FlashCards() {
       <List>
         {sets.length > 0 ? (
           sets.map((setName, index) => (
-            <ListItem 
-              button 
-              key={index} 
-              onClick={() => router.push(`/flashcards/${setName}`)}
-            >
-              <ListItemText primary={setName} />
-            </ListItem>
+            <Card key={index} sx={{ mb: 2 }}>
+              <CardContent>
+                <ListItem 
+                  button 
+                  onClick={() => router.push(`/flashcards/${setName}`)}
+                  sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}
+                >
+                  <ListItemText primary={setName} />
+                </ListItem>
+              </CardContent>
+            </Card>
           ))
         ) : (
           <Typography>No flashcard sets available.</Typography>
         )}
       </List>
     </Box>
-  );
+  )
 }
