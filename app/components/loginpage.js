@@ -111,7 +111,7 @@ export default function LoginPage() {
                     onClick={handleGoogleLogin}
                     style={{ backgroundColor: 'green', color: 'white' }}
                 >
-                    <image src='/images/google-logo.png' alt='Google Logo' style={{ width: '20px', marginRight: '8px', borderRadius: '35%' }} />
+                    <img src='/images/google-logo.png' alt='Google Logo' style={{ width: '20px', marginRight: '8px', borderRadius: '35%' }} />
                     Sign in with Google
                 </Button>
                 <Button

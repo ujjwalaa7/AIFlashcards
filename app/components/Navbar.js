@@ -6,6 +6,7 @@ import '../navbar.css';
 import { useState, useEffect } from 'react';
 import { logOut } from '../utility/auth';
 import { useRouter } from 'next/navigation'; 
+import { ImageAspectRatioRounded } from '@mui/icons-material';
 
 
 export default function Navbar() {
@@ -39,7 +40,7 @@ export default function Navbar() {
 
   return (
     <nav className={scrolled ? 'scrolled' : ''}>
-      <image src='/images/logo.png' className="logo" />
+      <Img src='/images/logo.png' className="logo" />
       <ul>
         <li><NavLink href="/flashcards" title="Flashcards" /></li>
         <li><NavLink href="/generate" title="Generate" /></li>
