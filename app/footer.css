@@ -22,6 +22,10 @@ footer {
   background-color: #004d00;
 }
 
+.popup:hover {
+  background-color: #004d00;
+}
+
 .popup {
   position: relative;
   display: inline-block;
