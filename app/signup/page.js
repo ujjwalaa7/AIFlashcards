@@ -1,6 +1,6 @@
 import SignUpPage from '../components/signuppage';
 
-export default function () {
+export default function SignUpPage() {
   return (
     <SignUpPage />  
   )

@@ -1,6 +1,6 @@
 import LoginPage from '../components/loginpage';
 
-export default function () {
+export default function LoginPage() {
   return (
       <LoginPage/>
   )
