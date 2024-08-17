@@ -29,7 +29,7 @@ if (loading) {
       maxWidth="false"
       className="flex flex-col items-center justify-center min-h-screen"
       style={{ 
-        backgroundImage: 'url(/images/zoocanva.png)', 
+        backgroundImage: 'url(/images/intel-o-flash.png)',
         backgroundSize: 'cover', 
         backgroundPosition: 'center', 
         backgroundRepeat: 'no-repeat', 
