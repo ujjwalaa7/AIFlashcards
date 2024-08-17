@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <nav className={scrolled ? 'scrolled' : ''}>
-      <Img src='/images/logo.png' className="logo" />
+      <img src='/images/logo.png' className="logo" />
       <ul>
         <li><NavLink href="/flashcards" title="Flashcards" /></li>
         <li><NavLink href="/generate" title="Generate" /></li>
