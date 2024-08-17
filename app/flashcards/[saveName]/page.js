@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { firestore, auth } from '@/firebase';
 import { useRouter, useParams } from 'next/navigation';
-import { Typography, Box, Button, IconButton, TextField, Stack, Card, CardContent, Divider } from '@mui/material';
+import { Typography, Box, Button, IconButton, TextField, Stack, Card, CardContent, Divider, Container } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -131,6 +131,23 @@ function FlashcardSet() {
   }
 
   return (
+    <Container
+    maxWidth="false"
+    className="flex items-center justify-center min-h-screen"
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      backgroundImage: 'url(/images/trial.png)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundColor: 'darkgreen',
+      backgroundRepeat: 'no-repeat',
+      margin: 0,
+      padding: 0,
+  }}
+>
     <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4 }}>
       <Typography variant="h4" gutterBottom>
         Flashcards in '{saveName}'
@@ -139,7 +156,7 @@ function FlashcardSet() {
             sx={{
               my: 2,
               height: 2,
-              background: 'linear-gradient(to right, #3f51b5, #f50057)',
+              background: 'linear-gradient(to right, #90EE90, #228B22)',
               borderRadius: 2,
             }}
           />
@@ -235,7 +252,7 @@ function FlashcardSet() {
           sx={{
             my: 2,
             height: 2,
-            background: 'linear-gradient(to right, #3f51b5, #f50057)',
+            background: 'linear-gradient(to right, #90EE90, #228B22)',
             borderRadius: 2,
           }}
         />
@@ -270,6 +287,8 @@ function FlashcardSet() {
         </Stack>
       </Box>
     </Box>
+    </Container>
+
   )
 }
 

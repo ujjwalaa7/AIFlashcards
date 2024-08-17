@@ -6,6 +6,8 @@ import { auth, firestore } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import { List, ListItem, ListItemText, Typography, Box, CircularProgress, Card, CardContent, Divider } from '@mui/material';
 import { onAuthStateChanged } from 'firebase/auth';
+import { Container } from '@mui/material';
+
 
 export default function FlashCards() {
   const [sets, setSets] = useState([]);
@@ -47,6 +49,23 @@ export default function FlashCards() {
   }
 
   return (
+    <Container
+    maxWidth="false"
+    className="flex items-center justify-center min-h-screen"
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      backgroundImage: 'url(/images/flashcards.png)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundColor: 'darkgreen',
+      backgroundRepeat: 'no-repeat',
+      margin: 0,
+      padding: 0,
+  }}
+>
     <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4 }}>
       <Typography variant="h4" gutterBottom>
         Saved Flashcard Sets
@@ -55,7 +74,7 @@ export default function FlashCards() {
         sx={{
           my: 2,
           height: 2,
-          background: 'linear-gradient(to right, #3f51b5, #f50057)',
+          background: 'linear-gradient(to right, #90EE90, #228B22)',
           borderRadius: 2,
         }}
       />
@@ -79,5 +98,7 @@ export default function FlashCards() {
         )}
       </List>
     </Box>
+    </Container>
+
   )
 }
