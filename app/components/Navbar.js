@@ -41,11 +41,11 @@ export default function Navbar() {
     <nav className={scrolled ? 'scrolled' : ''}>
       <img src='/images/logo.png' className="logo" />
       <ul>
-        <li><NavLink href="/home" title="Home" /></li>
-        <li><NavLink href="/bot" title="Chatterbot" /></li>
+        <li><NavLink href="/flashcards" title="Flashcards" /></li>
+        <li><NavLink href="/generate" title="Generate" /></li>
       </ul>
       <div>
-        <a className='btn' onClick={handleLogout}>Log out</a>
+        <a className='btn text-white' onClick={handleLogout}>Log out</a>
       </div>
     </nav>
   )

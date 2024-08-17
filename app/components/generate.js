@@ -157,7 +157,7 @@ export default function Generate() {
             background: 'linear-gradient(to right, #3f51b5, #f50057)',
             borderRadius: 2,
           }}
-        />
+        /> 
         <TextField
           value={text}
           onChange={(e) => setText(e.target.value)}
