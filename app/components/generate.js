@@ -145,59 +145,89 @@ export default function Generate() {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="false"
+    className="flex items-center justify-center min-h-screen"
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      backgroundImage: 'url(/images/try3.png)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundColor: 'darkgreen',
+      backgroundRepeat: 'no-repeat',
+      margin: 0,
+      padding: 0,
+  }}>
       <Box sx={{ my: 3 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Generate Flashcards
+        <Typography variant="h4" component="h1" gutterBottom sx={{fontWeight: 'bold', color: 'white' }}>
+          GENERATE FLASHCARDS
         </Typography>
         <Divider
           sx={{
             my: 2,
             height: 2,
-            background: 'linear-gradient(to right, #3f51b5, #f50057)',
+            background: 'linear-gradient(to right, #90EE90, #228B22)',
             borderRadius: 2,
           }}
         /> 
-        <TextField
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          label="Write About a Topic"
-          fullWidth
-          multiline
-          rows={4}
-          variant="outlined"
-          sx={{ mb: 2 }}
-        />
+      <TextField
+      value={text}
+       onChange={(e) => setText(e.target.value)}
+      label="Write About a Topic"
+      fullWidth
+      multiline
+      rows={4}
+      variant="outlined"
+      sx={{
+       mb: 2,
+        '& .MuiInputLabel-root': { color: 'white' },
+        '& .MuiOutlinedInput-root': {
+        color: 'white',
+      ' & fieldset': {
+          borderColor: 'white',
+        },
+        '&:hover fieldset': {
+        borderColor: 'white',
+        },
+        '&.Mui-focused fieldset': {
+         borderColor: 'white',
+       },
+      },
+      '& .MuiInputBase-input': { color: 'white' },
+      }}
+    />
         <Button
           variant="contained"
-          color="primary"
           onClick={handleSubmit}
           fullWidth
+          sx={{backgroundColor: 'darkgreen', color: 'white', '&:hover': { backgroundColor: 'green' } }}
         >
-          Generate Flashcards
+          GENERATE FLASHCARDS
         </Button>
       </Box>
       {flashcards.length > 0 && (
         <Box sx={{ mt: 4 }}>
-          <Typography variant="h5" component="h2" gutterBottom>
+          <Typography variant="h5" component="h2" gutterBottom sx={{ color: 'white' }}>
             Generated Flashcards
           </Typography>
           <Divider
             sx={{
               my: 2,
               height: 2,
-              background: 'linear-gradient(to right, #3f51b5, #f50057)',
+              background: 'linear-gradient(to right, #90EE90, #228B22)',              
               borderRadius: 2,
             }}
           />
-          <Button onClick={handleSelectAll} sx={{ mb: 2 }}>
+          <Button onClick={handleSelectAll} sx={{ mb: 2, color: 'white' }}>
             {selectedFlashcards.length === flashcards.length ? 'Deselect All' : 'Select All'}
           </Button>
           <Grid container spacing={2}>
             {flashcards.map((flashcard, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <div className="card-container">
-                  <div className="card">
+                  <div className="card" style={{backgroundColor: 'lightgreen', padding: '5px', borderRadius: '8px'}}>
                     <div className="card-front">
                       <Typography>{flashcard.front}</Typography>
                     </div>
@@ -217,9 +247,11 @@ export default function Generate() {
                       <Checkbox
                         checked={selectedFlashcards.includes(index)}
                         onChange={() => handleSelectFlashcard(index)}
+                        sx={{ color: 'white' }}
                       />
                     }
                     label="Select"
+                    sx={{ color: 'white' }}
                   />
                 </div>
               </Grid>
@@ -227,22 +259,48 @@ export default function Generate() {
           </Grid>
           {selectedFlashcards.length > 0 && (
             <Box sx={{ mt: 4 }}>
-            <TextField
+            {/* <TextField
               value={saveName}
               onChange={(e) => setSaveName(e.target.value)}
               label="Enter a name for saving"
               fullWidth
               variant="outlined"
-              sx={{ mb: 2 }}
-            />
+              sx={{ mb: 2, '& .MuiInputLabel-root': { color: 'white' }, '& .MuiOutlinedInput-root': { color: 'white' }, '& .MuiInputBase-input': { color: 'white' } }}
+            /> */}
+            <TextField
+      value={text}
+       onChange={(e) => setText(e.target.value)}
+      label="Enter a name for saving"
+      fullWidth
+      multiline
+      rows={4}
+      variant="outlined"
+      sx={{
+       mb: 2,
+        '& .MuiInputLabel-root': { color: 'white' },
+        '& .MuiOutlinedInput-root': {
+        color: 'white',
+      ' & fieldset': {
+          borderColor: 'white',
+        },
+        '&:hover fieldset': {
+        borderColor: 'white',
+        },
+        '&.Mui-focused fieldset': {
+         borderColor: 'white',
+       },
+      },
+      '& .MuiInputBase-input': { color: 'white' },
+      }}
+    />
             <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSaveSelected}
-              fullWidth
-            >
-                Save Selected Flashcards ({selectedFlashcards.length})
-              </Button>
+          variant="contained"
+          onClick={handleSubmit}
+          fullWidth
+          sx={{backgroundColor: 'darkgreen', color: 'white', '&:hover': { backgroundColor: 'green' } }}
+        >
+          Save Selected Flashcards
+        </Button>
             </Box>
           )}
         </Box>
