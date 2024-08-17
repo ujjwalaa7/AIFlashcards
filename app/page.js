@@ -1,4 +1,5 @@
 'use client'
+
 import Image from "next/image";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -7,7 +8,6 @@ import { auth } from "@/firebase";
 import Link from 'next/link';
 import { Box, Typography, Button, Container } from '@mui/material';
 import 'tailwindcss/tailwind.css';
-import { green } from "@mui/material/colors";
 import Footer from "../app/footer"
 
 export default function Home() {
@@ -73,6 +73,5 @@ if (loading) {
   </Container>
   <Footer />
   </div>
-
   )
 }

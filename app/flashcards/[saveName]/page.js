@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { firestore, auth } from '@/firebase';
@@ -81,7 +82,7 @@ export default function FlashcardSet() {
       const flashcardsDocRef = doc(firestore, 'users', user.uid, 'flashcards', saveName);
       await updateDoc(flashcardsDocRef, { flashcards: updatedFlashcards });
     }
-  };
+  }
 
   const handleDeleteSet = async () => {
     const user = auth.currentUser;
@@ -179,7 +180,6 @@ export default function FlashcardSet() {
       ) : (
         <Typography>No flashcards available in this set.</Typography>
       )}
-      
       <Box sx={{ mt: 4, mb: 2 }}>
         <Typography variant="h5" gutterBottom>
           Add a New Flashcard
@@ -222,7 +222,6 @@ export default function FlashcardSet() {
         
         </Stack>
       </Box>
-
     </Box>
   )
 }

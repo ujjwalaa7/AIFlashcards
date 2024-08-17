@@ -1,9 +1,10 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { auth, firestore } from '@/firebase';
 import { useRouter } from 'next/navigation';
-import { List, ListItem, ListItemText, Typography, Box, CircularProgress, Card, CardContent } from '@mui/material';
+import { List, ListItem, ListItemText, Typography, Box, CircularProgress, Card, CardContent, Divider } from '@mui/material';
 import { onAuthStateChanged } from 'firebase/auth';
 
 export default function FlashCards() {
@@ -42,7 +43,7 @@ export default function FlashCards() {
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
         <CircularProgress />
       </Box>
-    );
+    )
   }
 
   return (
@@ -50,6 +51,14 @@ export default function FlashCards() {
       <Typography variant="h4" gutterBottom>
         Saved Flashcard Sets
       </Typography>
+      <Divider
+        sx={{
+          my: 2,
+          height: 2,
+          background: 'linear-gradient(to right, #3f51b5, #f50057)',
+          borderRadius: 2,
+        }}
+      />
       <List>
         {sets.length > 0 ? (
           sets.map((setName, index) => (

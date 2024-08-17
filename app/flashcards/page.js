@@ -1,7 +1,14 @@
-import FlashCards from "../components/flashcards.js";
+import ProtectedRoute from "../components/protectedroute.js";
+import FlashCards from "../components/flashcards";
+import Navbar from '../components/Navbar';
 
 export default function () {
   return (
-      <FlashCards />
+    <ProtectedRoute>
+    <>
+    <Navbar />  
+    <FlashCards />
+    </>
+    </ ProtectedRoute>
   )
 }
