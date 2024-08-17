@@ -143,44 +143,90 @@ function FlashcardSet() {
               borderRadius: 2,
             }}
           />
-      {flashcards.length > 0 ? (
-        <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4 }}>
-          <div className="car-container">
-            <div className={`car ${isFlipped ? 'flipped' : ''}`} onClick={handleFlip}>
-              <div className="car-front">
-                <CardContent>
-                  <Typography variant="h6">
-                    {flashcards[currentIndex].front}
-                  </Typography>
-                  <Typography variant="caption" sx={{ position: 'absolute', top: 8, left: 8 }}>
-                    {currentIndex + 1}/{flashcards.length}
-                  </Typography>
-                </CardContent>
-              </div>
-              <div className="car-back">
-                <CardContent>
-                  <Typography variant="h6">
-                    {flashcards[currentIndex].back}
-                  </Typography>
-                  <Typography variant="caption" sx={{ position: 'absolute', top: 8, left: 8 }}>
-                    {currentIndex + 1}/{flashcards.length}
-                  </Typography>
-                </CardContent>
-              </div>
+  {flashcards.length > 0 ? (
+  <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4 }}>
+    <div className="car-container">
+      <div className={`car ${isFlipped ? 'flipped' : ''}`} onClick={editingIndex === null ? handleFlip : null}>
+        {editingIndex === currentIndex ? (
+          <>
+            {/* Edit form */}
+            <TextField
+              label="Edit Front"
+              value={editFront}
+              onClick={(e) => e.stopPropagation()}
+              onChange={(e) => setEditFront(e.target.value)}
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Edit Back"
+              value={editBack}
+              onClick={(e) => e.stopPropagation()} 
+              onChange={(e) => setEditBack(e.target.value)}
+              fullWidth
+              sx={{ mb: 2 }}
+            />
+            <Stack direction="row" spacing={2}>
+              <Button variant="contained" color="primary" onClick={handleSaveEdit}>
+                Save
+              </Button>
+              <Button variant="contained" color="secondary" onClick={(e) => { e.stopPropagation(); setEditingIndex(null); }}>
+                Cancel
+              </Button>
+            </Stack>
+          </>
+        ) : (
+          <>
+            <div className="car-front">
+              <CardContent>
+                <Typography variant="h6">
+                  {flashcards[currentIndex].front}
+                </Typography>
+                <Typography variant="caption" sx={{ position: 'absolute', top: 8, left: 8 }}>
+                  {currentIndex + 1}/{flashcards.length}
+                </Typography>
+                <IconButton 
+                  color="primary" 
+                  onClick={(e) => { e.stopPropagation(); handleEdit(currentIndex); }} 
+                  sx={{ position: 'absolute', top: 8, right: 8 }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </CardContent>
             </div>
-          </div>
-          <Stack direction="row" justifyContent="space-between">
-            <IconButton onClick={handlePrev}>
-              <ArrowBackIcon />
-            </IconButton>
-            <IconButton onClick={handleNext}>
-              <ArrowForwardIcon />
-            </IconButton>
-          </Stack>
-        </Box>
-      ) : (
-        <Typography>No flashcards available in this set.</Typography>
-      )}
+            <div className="car-back">
+              <CardContent>
+                <Typography variant="h6">
+                  {flashcards[currentIndex].back}
+                </Typography>
+                <Typography variant="caption" sx={{ position: 'absolute', top: 8, left: 8 }}>
+                  {currentIndex + 1}/{flashcards.length}
+                </Typography>
+                <IconButton 
+                  color="secondary" 
+                  onClick={(e) => { e.stopPropagation(); handleDeleteFlashcard(currentIndex); }} 
+                  sx={{ position: 'absolute', bottom: 8, right: 8 }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </CardContent>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+    <Stack direction="row" justifyContent="space-between">
+      <IconButton onClick={handlePrev}>
+        <ArrowBackIcon />
+      </IconButton>
+      <IconButton onClick={handleNext}>
+        <ArrowForwardIcon />
+      </IconButton>
+    </Stack>
+  </Box>
+) : (
+  <Typography>No flashcards available in this set.</Typography>
+)}
       <Box sx={{ mt: 4, mb: 2 }}>
         <Typography variant="h5" gutterBottom>
           Add a New Flashcard
