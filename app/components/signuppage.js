@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signUpWithEmail } from '../utility/auth';
@@ -33,7 +34,7 @@ export default function SignUpPage() {
     } catch (error) {
       alert('Error signing up: ' + error.message);
     }
-  };
+  }
 
   return (
     <Container

@@ -36,7 +36,7 @@ async function generateFlashcards(data, numToGenerate) {
         'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GROQ_API_KEY}`,
       },
     }
-  );
+  )
 
   const completion = response.data.choices[0].message;
 
