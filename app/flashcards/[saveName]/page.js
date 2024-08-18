@@ -59,7 +59,7 @@ function FlashcardSet() {
     setEditingIndex(index);
     setEditFront(flashcards[index].front);
     setEditBack(flashcards[index].back);
-  };
+  }
 
   const handleSaveEdit = async () => {
     const updatedFlashcards = [...flashcards];
@@ -72,7 +72,7 @@ function FlashcardSet() {
       const flashcardsDocRef = doc(firestore, 'users', user.uid, 'flashcards', saveName);
       await updateDoc(flashcardsDocRef, { flashcards: updatedFlashcards });
     }
-  };
+  }
 
   const handleDeleteFlashcard = async (index) => {
     const updatedFlashcards = flashcards.filter((_, i) => i !== index);
@@ -102,7 +102,7 @@ function FlashcardSet() {
   
 
     setIsFlipped(false);
-  };
+  }
 
   const handleDeleteSet = async () => {
     const user = auth.currentUser;
@@ -129,19 +129,19 @@ function FlashcardSet() {
       const flashcardsDocRef = doc(firestore, 'users', user.uid, 'flashcards', saveName);
       await updateDoc(flashcardsDocRef, { flashcards: updatedFlashcards });
     }
-  };
+  }
 
   const handleFlip = () => setIsFlipped(!isFlipped);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % flashcards.length);
     setIsFlipped(false);
-  };
+  }
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + flashcards.length) % flashcards.length);
     setIsFlipped(false);
-  };
+  }
 
   if (loading) {
     return <p>Loading flashcards...</p>;
@@ -358,7 +358,7 @@ function FlashcardSet() {
         </Box>
       </Container>
     </Container>
-  );
+  )
 }
 
 export default function FlashcardSetPage() {
@@ -366,5 +366,5 @@ export default function FlashcardSetPage() {
     <ProtectedRoute>
       <FlashcardSet />
     </ProtectedRoute>
-  );
+  )
 }

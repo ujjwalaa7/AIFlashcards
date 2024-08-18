@@ -16,13 +16,13 @@ export default function Navbar() {
       } else {
         setScrolled(false);
       }
-    };
+    }
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    }
+  }, [])
 
   const handleLogout = async () => {
     try {
@@ -31,7 +31,7 @@ export default function Navbar() {
     } catch (error) {
       console.error('Error logging out:', error);
     }
-  };
+  }
 
   const handleLogoClick = () => {
     router.push('/flashcards');

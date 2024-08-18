@@ -11,7 +11,7 @@ export const loginWithGoogle = async () => {
     console.error('Error signing in with Google', error);
     throw error;
   }
-};
+}
 
 export const signUpWithEmail = async (email, password) => {
   try {
@@ -21,7 +21,7 @@ export const signUpWithEmail = async (email, password) => {
     console.error('Error signing up with email', error);
     throw error;
   }
-};
+}
 
 export const loginWithEmail = async (email, password) => {
   try {
@@ -31,7 +31,7 @@ export const loginWithEmail = async (email, password) => {
     console.error('Error logging in with email', error);
     throw error;
   }
-};
+}
 
 export const logOut = async () => {
   try {
@@ -40,4 +40,4 @@ export const logOut = async () => {
     console.error('Error logging out', error);
     throw error;
   }
-};
+}

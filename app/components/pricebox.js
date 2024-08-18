@@ -41,7 +41,7 @@ export default function PriceBox() {
     textDecoration: 'line-through',
     marginBottom: '8px',
     color: 'lightgrey',
-  };
+  }
 
   return (
     <Box
@@ -101,14 +101,14 @@ export default function PriceBox() {
           <Typography sx={{ mr: 'auto' }}>
             <Box display="flex" flexDirection="column">
               <Box>
-                $3.99{' '}
+                $4.99{' '}
                 <Typography fontSize="small" color="textSecondary">
                   / month
                 </Typography>
               </Box>
               <Box>
                 <Typography style={listItemStyle}>
-                  $5.99 / month
+                  $9.99 / month
                 </Typography>
               </Box>
             </Box>
@@ -119,5 +119,5 @@ export default function PriceBox() {
         </CardActions>
       </Card>
     </Box>
-  );
+  )
 }
