@@ -4,9 +4,10 @@ let stripePromise
 
 const getStripe = () => {
   if (!stripePromise) {
-    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY)
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
   }
-  return stripePromise
-}
+  return stripePromise;
+};
+
 
 export default getStripe
