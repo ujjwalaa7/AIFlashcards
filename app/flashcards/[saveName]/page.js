@@ -139,7 +139,7 @@ function FlashcardSet() {
       alignItems: 'center',
       justifyContent: 'center',
       minHeight: '100vh',
-      backgroundImage: 'url(/images/trial.png)',
+      backgroundImage: 'url(/images/try3.png)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundColor: 'darkgreen',
@@ -148,8 +148,9 @@ function FlashcardSet() {
       padding: 0,
   }}
 >
+  <Container maxWidth="md">
     <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" display={'flex'} justifyContent='center' component="h1" gutterBottom sx={{ fontWeight: 'bold', color: 'white' }}>
         Flashcards in '{saveName}'
       </Typography>
       <Divider
@@ -233,19 +234,20 @@ function FlashcardSet() {
       </div>
     </div>
     <Stack direction="row" justifyContent="space-between">
-      <IconButton onClick={handlePrev}>
-        <ArrowBackIcon />
-      </IconButton>
-      <IconButton onClick={handleNext}>
-        <ArrowForwardIcon />
-      </IconButton>
-    </Stack>
+  <IconButton onClick={handlePrev} sx={{ color: 'lightgreen' }}>
+    <ArrowBackIcon />
+  </IconButton>
+  <IconButton onClick={handleNext} sx={{ color: 'lightgreen' }}>
+    <ArrowForwardIcon />
+  </IconButton>
+</Stack>
+
   </Box>
 ) : (
-  <Typography>No flashcards available in this set.</Typography>
+  <Typography color={'#ccecc9'}> No flashcards available in this set.</Typography>
 )}
       <Box sx={{ mt: 4, mb: 2 }}>
-        <Typography variant="h5" gutterBottom>
+      <Typography variant="h5" component="h1" gutterBottom sx={{ fontWeight: 'bold', color: 'white' }}>
           Add a New Flashcard
         </Typography>
         <Divider
@@ -261,26 +263,70 @@ function FlashcardSet() {
           value={newFront}
           onChange={(e) => setNewFront(e.target.value)}
           fullWidth
-          sx={{ mb: 2 }}
+          sx={{
+            mb: 1,
+            mt: 2,
+            '& .MuiInputLabel-root': { color: 'white' },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: 'white' },
+              '&:hover fieldset': { borderColor: 'white' },
+              '&.Mui-focused fieldset': { borderColor: 'white' },
+              color: 'white',
+            },
+            '& .MuiInputBase-input': { color: 'white' },
+          }}
         />
         <TextField
           label="Back"
           value={newBack}
           onChange={(e) => setNewBack(e.target.value)}
           fullWidth
-          sx={{ mb: 2 }}
+          sx={{
+            mb: 3,
+            mt: 3,
+            '& .MuiInputLabel-root': { color: 'white' },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: 'white' },
+              '&:hover fieldset': { borderColor: 'white' },
+              '&.Mui-focused fieldset': { borderColor: 'white' },
+              color: 'white',
+            },
+            '& .MuiInputBase-input': { color: 'white' },
+          }}
         />
-        
         <Stack spacing={2} direction={'row'} justifyContent={'center'}>
-        <Button variant="contained" color="primary" onClick={handleAddFlashcard}>
+
+        <Button variant="contained" color="primary" onClick={handleAddFlashcard}
+          sx={{ 
+            backgroundColor: 'green', 
+            '&:hover': {
+              backgroundColor: 'darkgreen',
+            }
+          }}
+        >
           Add Flashcard
         </Button>
-
-        <Button variant="contained" color="secondary" onClick={handleDeleteSet} sx={{ mb: 2 }}>
+        
+        <Button variant="contained" color="secondary" onClick={handleDeleteSet}
+          sx={{ 
+            backgroundColor: 'darkcyan', 
+            '&:hover': {
+              backgroundColor: 'teal',
+            }
+          }}
+        >
           Delete Set
         </Button>
         
-        <Button variant="contained" color="primary" onClick={() => router.back()} sx={{ mb: 2 }}>
+        <Button variant="contained" color="primary" onClick={() => router.back()}
+          sx={{ 
+            mb: 2,
+            backgroundColor: 'green', 
+            '&:hover': {
+              backgroundColor: 'darkgreen',
+            }
+          }}
+          >
           Back to Flashcard Sets
         </Button>
         
@@ -288,7 +334,7 @@ function FlashcardSet() {
       </Box>
     </Box>
     </Container>
-
+    </Container>     
   )
 }
 

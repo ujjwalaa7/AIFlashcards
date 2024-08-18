@@ -1,12 +1,9 @@
-'use client'; 
+'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import NavLink from './NavLink';
-import '../navbar.css';
-import { useState, useEffect } from 'react';
 import { logOut } from '../utility/auth';
-import { useRouter } from 'next/navigation'; 
-import "./navbar.css"
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const router = useRouter(); 
@@ -34,12 +31,20 @@ export default function Navbar() {
     } catch (error) {
       console.error('Error logging out:', error);
     }
+  };
 
+  const handleLogoClick = () => {
+    router.push('/flashcards');
   }
 
   return (
     <nav className={scrolled ? 'scrolled' : ''}>
-      <img src='/images/logo.png' className="logo" />
+      <img 
+        src='/images/logo.png' 
+        className='logo'
+        onClick={handleLogoClick} 
+        alt="Logo"
+      />
       <ul>
         <li><NavLink href="/flashcards" title="Flashcards" /></li>
         <li><NavLink href="/generate" title="Generate" /></li>

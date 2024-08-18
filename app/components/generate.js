@@ -35,12 +35,12 @@ export default function Generate() {
       alert('Please enter some text to generate flashcards.')
       return
     }
-  
+
     try {
       const unselectedIndices = flashcards.map((_, index) => index)
         .filter(index => !selectedFlashcards.includes(index))
       const numToGenerate = unselectedIndices.length || 12 // Generate 12 if all are selected
-  
+
       const response = await fetch('/api/generate', {
         method: 'POST',
         headers: {
@@ -51,17 +51,17 @@ export default function Generate() {
           numToGenerate,
         }),
       })
-  
+
       if (!response.ok) {
         throw new Error('Failed to generate flashcards')
       }
-  
+
       const newFlashcards = await response.json()
-  
+
       setFlashcards(prevCards => {
         const selectedCards = prevCards.filter((_, index) => selectedFlashcards.includes(index))
         const updatedCards = [...selectedCards, ...newFlashcards]
-        
+
         // Update selected flashcards
         setSelectedFlashcards(prev => {
           if (prevCards.length === 0) {
@@ -74,7 +74,7 @@ export default function Generate() {
         })
         return updatedCards
       })
-  
+
     } catch (error) {
       console.error('Error generating flashcards:', error)
       alert('An error occurred while generating flashcards. Please try again.')
@@ -134,7 +134,7 @@ export default function Generate() {
     setEditIndex(null)
     setOpen(false)
   }
-  
+
   const handleSelectFlashcard = (index) => {
     setSelectedFlashcards(prev => {
       if (prev.includes(index)) {
@@ -147,188 +147,196 @@ export default function Generate() {
 
   return (
     <Container maxWidth="false"
-    className="flex items-center justify-center min-h-screen"
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100vh',
-      backgroundImage: 'url(/images/try3.png)',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundColor: 'darkgreen',
-      backgroundRepeat: 'no-repeat',
-      margin: 0,
-      padding: 0,
-  }}>
-    <Container maxWidth='md'> 
-    <Box sx={{ my: 3 }}>
-        <Typography variant="h4" justifyContent= 'center' component="h1" gutterBottom sx={{fontWeight: 'bold', color: 'white' }}>
-          GENERATE FLASHCARDS
-        </Typography>
-        <Divider
-          sx={{
-            my: 2,
-            height: 2,
-            background: 'linear-gradient(to right, #90EE90, #228B22)',
-            borderRadius: 2,
-          }}
-        /> 
-      <TextField
-      value={text}
-       onChange={(e) => setText(e.target.value)}
-      label="Write About a Topic"
-      fullWidth
-      multiline
-      rows={4}
-      variant="outlined"
-      sx={{
-       mb: 2,
-        '& .MuiInputLabel-root': { color: 'white' },
-        '& .MuiOutlinedInput-root': {
-        color: 'white',
-      ' & fieldset': {
-          borderColor: 'white',
-        },
-        '&:hover fieldset': {
-        borderColor: 'white',
-        },
-        '&.Mui-focused fieldset': {
-         borderColor: 'white',
-       },
-      },
-      '& .MuiInputBase-input': { color: 'white' },
-      }}
-    />
-        <Button
-          variant="contained"
-          onClick={handleSubmit}
-          fullWidth
-          sx={{backgroundColor: 'darkgreen', color: 'white', '&:hover': { backgroundColor: 'green' } }}
-        >
-          GENERATE FLASHCARDS
-        </Button>
-      </Box>
-      {flashcards.length > 0 && (
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="h5" component="h2" gutterBottom sx={{ color: 'white' }}>
-            GENERATED FLASHCARDS
+      className="flex items-center justify-center min-h-screen"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        backgroundImage: 'url(/images/try3.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: 'darkgreen',
+        backgroundRepeat: 'no-repeat',
+        margin: 0,
+        padding: 0,
+      }}>
+      <Container maxWidth='md'>
+        <Box sx={{ my: 10 }}>
+          <Typography variant="h4" display={'flex'} justifyContent='center' component="h1" gutterBottom sx={{ fontWeight: 'bold', color: 'white' }}>
+            GENERATE FLASHCARDS
           </Typography>
           <Divider
             sx={{
               my: 2,
               height: 2,
-              background: 'linear-gradient(to right, #90EE90, #228B22)',              
+              background: 'linear-gradient(to right, #90EE90, #228B22)',
               borderRadius: 2,
             }}
           />
-          <Button onClick={handleSelectAll} sx={{ mb: 2, color: 'white' }}>
-            {selectedFlashcards.length === flashcards.length ? 'Deselect All' : 'Select All'}
+          <TextField
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            label="Write About a Topic"
+            fullWidth
+            multiline
+            rows={4}
+            variant="outlined"
+            sx={{
+              mb: 1,
+              mt: 2,
+              '& .MuiInputLabel-root': { color: 'white' },
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': { borderColor: 'white' },
+                '&:hover fieldset': { borderColor: 'white' },
+                '&.Mui-focused fieldset': { borderColor: 'white' },
+                color: 'white',
+              },
+              '& .MuiInputBase-input': { color: 'white' },
+            }}
+          />
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            fullWidth
+            sx={{ backgroundColor: 'darkgreen', color: 'white', '&:hover': { backgroundColor: 'green' } }}
+          >
+            GENERATE FLASHCARDS
           </Button>
-          <Grid container spacing={2}>
-            {flashcards.map((flashcard, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <div className="card-container">
-                  <div className="card" style={{backgroundColor: 'lightgreen', padding: '5px', borderRadius: '8px'}}>
-                    <div className="card-front">
-                      <Typography>{flashcard.front}</Typography>
+        </Box>
+        {flashcards.length > 0 && (
+          <Box sx={{ mt: 4 }}>
+            <Typography variant="h5" component="h2" gutterBottom sx={{ color: 'white' }}>
+              GENERATED FLASHCARDS
+            </Typography>
+            <Divider
+              sx={{
+                my: 2,
+                height: 2,
+                background: 'linear-gradient(to right, #90EE90, #228B22)',
+                borderRadius: 2,
+              }}
+            />
+            <Button onClick={handleSelectAll} sx={{ mb: 2, color: 'white' }}>
+              {selectedFlashcards.length === flashcards.length ? 'Deselect All' : 'Select All'}
+            </Button>
+            <Grid container spacing={2}>
+              {flashcards.map((flashcard, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <div className="card-container">
+                    <div className="card" style={{ backgroundColor: 'lightgreen', padding: '5px', borderRadius: '8px' }}>
+                      <div className="card-front">
+                        <Typography>{flashcard.front}</Typography>
+                      </div>
+                      <div className="card-back">
+                        <Typography>{flashcard.back}</Typography>
+                        <IconButton
+                          color="primary"
+                          onClick={() => handleEdit(index)}
+                          sx={{ position: 'absolute', top: 8, right: 8 }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </div>
                     </div>
-                    <div className="card-back">
-                      <Typography>{flashcard.back}</Typography>
-                      <IconButton
-                        color="primary"
-                        onClick={() => handleEdit(index)}
-                        sx={{ position: 'absolute', top: 8, right: 8 }}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </div>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={selectedFlashcards.includes(index)}
+                          onChange={() => handleSelectFlashcard(index)}
+                          sx={{ color: 'white' }}
+                        />
+                      }
+                      label="Select"
+                      sx={{ color: 'white' }}
+                    />
                   </div>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={selectedFlashcards.includes(index)}
-                        onChange={() => handleSelectFlashcard(index)}
-                        sx={{ color: 'white' }}
-                      />
-                    }
-                    label="Select"
-                    sx={{ color: 'white' }}
-                  />
-                </div>
-              </Grid>
-            ))}
-          </Grid>
-          <TextField
-          value={saveName}
-          onChange={(e) => setSaveName(e.target.value)}
-          label="Enter a name for saving"
-          fullWidth
-          variant="outlined"
-          sx={{ mb:1, mt:2, '& .MuiInputLabel-root': { color: 'white' }, '& .MuiOutlinedInput-root': { color: 'white' }, '& .MuiInputBase-input': { color: 'white' } }}
-        />
-              {selectedFlashcards.length > 0 && (
-                <Box sx={{ mt: 4 }}>
-                <Button
-              variant="contained"
-              onClick={handleSaveSelected}
+                </Grid>
+              ))}
+            </Grid>
+            <TextField
+              value={saveName}
+              onChange={(e) => setSaveName(e.target.value)}
+              label="Enter A Name To Save Flashcards"
               fullWidth
-              sx={{backgroundColor: 'darkgreen', color: 'white', '&:hover': { backgroundColor: 'green' } }}
-        >
-          Save Selected Flashcards
-        </Button>
-            </Box>
-          )}
-        </Box>
-      )}
-      <Modal
-        open={open}
-        onClose={handleCancel}
-        aria-labelledby="edit-flashcard-modal"
-        aria-describedby="edit-flashcard-modal-description"
-      >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            bgcolor: 'background.paper',
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <Typography id="edit-flashcard-modal" variant="h6" component="h2" sx = {{ mb: 2 }}>
-            Edit Flashcard
-          </Typography>
-          <TextField
-            label="Front"
-            value={editFront}
-            onChange={(e) => setEditFront(e.target.value)}
-            fullWidth
-            variant="outlined"
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            label="Back"
-            value={editBack}
-            onChange={(e) => setEditBack(e.target.value)}
-            fullWidth
-            variant="outlined"
-            sx={{ mb: 2 }}
-          />
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <IconButton color="primary" onClick={handleSave}>
-              <SaveIcon />
-            </IconButton>
-            <IconButton color="secondary" onClick={handleCancel}>
-              <CancelIcon />
-            </IconButton>
+              variant="outlined"
+              sx={{
+                mb: 1,
+                mt: 2,
+                '& .MuiInputLabel-root': { color: 'white' },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { borderColor: 'white' },
+                  '&:hover fieldset': { borderColor: 'white' },
+                  '&.Mui-focused fieldset': { borderColor: 'white' },
+                  color: 'white',
+                },
+                '& .MuiInputBase-input': { color: 'white' },
+              }}
+            />
+            {selectedFlashcards.length > 0 && (
+              <Box sx={{ mt: 4 }}>
+                <Button
+                  variant="contained"
+                  onClick={handleSaveSelected}
+                  fullWidth
+                  sx={{backgroundColor: 'darkgreen', color: 'white', '&:hover': { backgroundColor: 'green' } }}
+                >
+                  Save Selected Flashcards
+                </Button>
+              </Box>
+            )}
+            <Box sx={{ mt: 10 }}>
+              </Box>
           </Box>
-        </Box>
-      </Modal>
-    </Container>
+        )}
+        <Modal
+          open={open}
+          onClose={handleCancel}
+          aria-labelledby="edit-flashcard-modal"
+          aria-describedby="edit-flashcard-modal-description"
+        >
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 400,
+              bgcolor: 'background.paper',
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography id="edit-flashcard-modal" variant="h6" component="h2" sx={{ mb: 2 }}>
+              Edit Flashcard
+            </Typography>
+            <TextField
+              label="Front"
+              value={editFront}
+              onChange={(e) => setEditFront(e.target.value)}
+              fullWidth
+              variant="outlined"
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Back"
+              value={editBack}
+              onChange={(e) => setEditBack(e.target.value)}
+              fullWidth
+              variant="outlined"
+              sx={{ mb: 2 }}
+            />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <IconButton color="primary" onClick={handleSave}>
+                <SaveIcon />
+              </IconButton>
+              <IconButton color="secondary" onClick={handleCancel}>
+                <CancelIcon />
+              </IconButton>
+            </Box>
+          </Box>
+        </Modal>
+      </Container>
     </Container>
   )
 }

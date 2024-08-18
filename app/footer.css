@@ -3,6 +3,10 @@ footer {
   color: #ecf0f1;
   padding: 20px 0;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x:visible;
+  font-family: 'Comic Sans MS', sans-serif;
 }
 
 #back-to-top {
@@ -15,7 +19,6 @@ footer {
   margin-top: 20px;
   margin-right: 20px;
   border-radius: 5px;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 #back-to-top:hover {
@@ -39,10 +42,8 @@ footer {
   margin-top: 20px;
   margin-right: 20px;
   border-radius: 5px;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* The actual popup (appears on top) */
 .popup .popuptext {
   visibility: hidden;
   width: 350px;
@@ -70,14 +71,12 @@ footer {
   border-color: #555 transparent transparent transparent;
 }
 
-/* Toggle this class when clicking on the popup container (hide and show the popup) */
 .popup .show {
   visibility: visible;
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
 }
 
-/* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
@@ -92,5 +91,10 @@ footer {
   margin-top: 20px;
   border-top: 1px solid #ecf0f1;
   padding-top: 10px;
-  font-family: 'Times New Roman', Times, serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
 }

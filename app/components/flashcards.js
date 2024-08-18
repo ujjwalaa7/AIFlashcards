@@ -8,7 +8,6 @@ import { List, ListItem, ListItemText, Typography, Box, CircularProgress, Card, 
 import { onAuthStateChanged } from 'firebase/auth';
 import { Container } from '@mui/material';
 
-
 export default function FlashCards() {
   const [sets, setSets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,9 +35,9 @@ export default function FlashCards() {
         setSets([]);
       }
       setLoading(false);
-    })
-    return () => listSets(); 
-  }, [])
+    });
+    return () => listSets();
+  }, []);
 
   if (loading) {
     return (
@@ -50,55 +49,67 @@ export default function FlashCards() {
 
   return (
     <Container
-    maxWidth="false"
-    className="flex items-center justify-center min-h-screen"
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100vh',
-      backgroundImage: 'url(/images/flashcards.png)',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundColor: 'darkgreen',
-      backgroundRepeat: 'no-repeat',
-      margin: 0,
-      padding: 0,
-  }}
->
-    <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Saved Flashcard Sets
-      </Typography>
-      <Divider
-        sx={{
-          my: 2,
-          height: 2,
-          background: 'linear-gradient(to right, #90EE90, #228B22)',
-          borderRadius: 2,
-        }}
-      />
-      <List>
-        {sets.length > 0 ? (
-          sets.map((setName, index) => (
-            <Card key={index} sx={{ mb: 2 }}>
-              <CardContent>
-                <ListItem 
-                  button 
-                  onClick={() => router.push(`/flashcards/${setName}`)}
-                  sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}
+      maxWidth="false"
+      className="flex items-center justify-center min-h-screen"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        backgroundImage: 'url(/images/try3.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundColor: 'darkgreen',
+        backgroundRepeat: 'no-repeat',
+        margin: 0,
+        padding: 0,
+      }}
+    >
+      <Container maxWidth='md'>
+        <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4 }}>
+          <Typography variant="h4" display={'flex'} justifyContent='center' component="h1" gutterBottom sx={{ fontWeight: 'bold', color: 'white' }}>
+            SAVED FLASHCARD SETS
+          </Typography>
+          <Divider
+            sx={{
+              my: 2,
+              height: 2,
+              background: 'linear-gradient(to right, #90EE90, #228B22)',
+              borderRadius: 2,
+            }}
+          />
+          <List>
+            {sets.length > 0 ? (
+              sets.map((setName, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    mb: 2,
+                    p: 2,
+                    border: '1px solid #ddd',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
+                  }}
                 >
-                  <ListItemText primary={setName} />
-                </ListItem>
-              </CardContent>
-            </Card>
-          ))
-        ) : (
-          <Typography>No flashcard sets available.</Typography>
-        )}
-      </List>
-    </Box>
+                  <Card>
+                    <CardContent>
+                      <ListItem
+                        button
+                        onClick={() => router.push(`/flashcards/${setName}`)}
+                        sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}
+                      >
+                        <ListItemText primary={setName} />
+                      </ListItem>
+                    </CardContent>
+                  </Card>
+                </Box>
+              ))
+            ) : (
+              <Typography color={'white'}>No flashcard sets available.</Typography>
+            )}
+          </List>
+        </Box>
+      </Container>
     </Container>
-
   )
 }
