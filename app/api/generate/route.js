@@ -2,11 +2,17 @@ import { NextResponse } from 'next/server';
 import axios from 'axios';
 
 const systemPrompt = `
-You are a flashcard creator, you take in text and create multiple flashcards from it. Make sure to create the exact number of flashcards requested.
-Both front and back should be one sentence long.
-You should return in the following JSON format:
+You are a flashcard creator. Your task is to generate a specific number of flashcards from the provided text. 
+Each flashcard should consist of a front and a back, with each side being exactly one sentence long. 
+
+Please ensure the following:
+1. Create the exact number of flashcards requested.
+2. The content on the front should represent a question, term, or prompt about the given topic.
+3. The content on the back should provide the answer, definition, or explanation about the given topic.
+
+Return the output in the following JSON format:
 {
-  "flashcards":[
+  "flashcards": [
     {
       "front": "Front of the card",
       "back": "Back of the card"
@@ -27,7 +33,7 @@ async function generateFlashcards(data, numToGenerate) {
       messages: messages,
       model: 'llama3-8b-8192',
       max_tokens: 3000, 
-      temperature: 0.7,
+      temperature: 1,
       stop: null
     },
     {

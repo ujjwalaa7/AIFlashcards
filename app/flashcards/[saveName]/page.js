@@ -179,8 +179,8 @@ function FlashcardSet() {
           />
           <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4 }}>
             {flashcards.length > 0 ? (
-              <div className="card-container">
-                <div className={`card ${isFlipped ? 'flipped' : ''}`} onClick={editingIndex === null ? handleFlip : null}>
+              <div className="car-container">
+                <div className={`car ${isFlipped ? 'flipped' : ''}`} onClick={editingIndex === null ? handleFlip : null}> 
                   {editingIndex === currentIndex ? (
                     <>
                       <TextField
@@ -210,7 +210,7 @@ function FlashcardSet() {
                     </>
                   ) : (
                     <>
-                      <div className="card-front">
+                      <div className="car-front">
                         <CardContent>
                           <Typography variant="h6">
                             {flashcards[currentIndex]?.front || "No flashcards available"}
@@ -229,7 +229,7 @@ function FlashcardSet() {
                           </IconButton>
                         </CardContent>
                       </div>
-                      <div className="card-back">
+                      <div className="car-back">
                         <CardContent>
                           <Typography variant="h6">
                             {flashcards[currentIndex]?.back || "No flashcards available"}
