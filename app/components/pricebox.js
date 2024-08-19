@@ -47,14 +47,18 @@ export default function PriceBox() {
     <Box
       sx={{
         width: '100%',
-        display: 'grid',
+        display: 'flex',
+        justifyContent: 'center',
         gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
+        padding: 2,
         gap: 2,
       }}
     >
       <Card size="lg" variant="outlined">
         <Chip size="small" variant="outlined" label="BASIC" />
+        <Box display='flex' justifyContent='center'>
         <Typography variant="h6">Basic</Typography>
+        </Box>
         <Divider />
         <List>
           <ListItem>
@@ -78,9 +82,11 @@ export default function PriceBox() {
         </CardActions>
       </Card>
 
-      <Card size="lg" variant="solid" sx={{ bgcolor: 'grey.900', color: 'white' }}>
-        <Chip size="small" variant="outlined" label="On Sale" />
+      <Card size="lg" variant="solid"  sx={{ bgcolor: 'grey.900', color: 'white' }}>
+        <Chip size="small" variant="outlined" label="ON SALE" sx={{color:'white'}} />
+        <Box display='flex' justifyContent='center'>
         <Typography variant="h6">Unlimited</Typography>
+        </Box>
         <Divider />
         <List>
           <ListItem>
