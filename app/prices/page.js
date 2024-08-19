@@ -1,4 +1,5 @@
 'use client';
+
 import Prices from '../components/prices';
 import PriceBox from '../components/pricebox';
 import { Container, Button } from '@mui/material';
@@ -15,7 +16,7 @@ export default function Price() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column',  // Changed from 'direction' to 'flexDirection'
+        flexDirection: 'column',
         minHeight: '100vh',
         backgroundImage: 'url(/images/trees.png)',
         backgroundSize: 'cover',
@@ -33,6 +34,8 @@ export default function Price() {
         fullWidth
         onClick={() => router.push('/')}
         sx={{
+          zIndex: 100,
+          margin: '20px',
           backgroundColor: 'green',
           color: 'white',
           '&:hover': {
@@ -45,5 +48,5 @@ export default function Price() {
         Home Page
       </Button>
     </Container>
-  );
+  )
 }

@@ -46,7 +46,7 @@ export default function Footer() {
                                 }}
                                 />
                             <li className='mb-1'><strong>Can I customize my own cards?</strong></li>
-                            <li>Yes, you can add or edit the flashcards</li>
+                            <li>Yes, you can add, edit, & delete the flashcards</li>
                             <Divider
                                 sx={{
                                     my: 1,

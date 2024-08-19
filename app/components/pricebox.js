@@ -52,10 +52,11 @@ export default function PriceBox() {
         gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
         padding: 2,
         gap: 2,
+        zIndex: 200,
       }}
     >
-      <Card size="lg" variant="outlined">
-        <Chip size="small" variant="outlined" label="BASIC" />
+      <Card size="lg" variant="outlined" sx={{borderRadius: '7%'}}>
+        <Chip size="medium" variant="outlined" label="BASIC" />
         <Box display='flex' justifyContent='center'>
         <Typography variant="h6">Basic</Typography>
         </Box>
@@ -82,8 +83,8 @@ export default function PriceBox() {
         </CardActions>
       </Card>
 
-      <Card size="lg" variant="solid"  sx={{ bgcolor: 'grey.900', color: 'white' }}>
-        <Chip size="small" variant="outlined" label="ON SALE" sx={{color:'white'}} />
+      <Card size="lg" variant="solid"  sx={{ bgcolor: 'grey.900', color: 'white', borderRadius: '7%' }}>
+        <Chip size="medium" variant="outlined" label="ON SALE" sx={{color:'white'}} />
         <Box display='flex' justifyContent='center'>
         <Typography variant="h6">Unlimited</Typography>
         </Box>
@@ -108,11 +109,11 @@ export default function PriceBox() {
             <Box display="flex" flexDirection="column">
               <Box>
                 $4.99{' '}
-                <Typography fontSize="small" color="textSecondary">
+                <Typography fontSize="small" color="white">
                   / month
                 </Typography>
               </Box>
-              <Box>
+              <Box> 
                 <Typography style={listItemStyle}>
                   $9.99 / month
                 </Typography>
