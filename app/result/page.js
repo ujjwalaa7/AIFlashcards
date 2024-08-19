@@ -1,9 +1,9 @@
 'use client';
 import { Container, CircularProgress, Typography, Box } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function ResultPage() {
+function ResultPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const session_id = searchParams.get("session_id");
@@ -76,5 +76,13 @@ export default function ResultPage() {
         </>
       )}
     </Container>
+  );
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResultPageContent />
+    </Suspense>
   );
 }

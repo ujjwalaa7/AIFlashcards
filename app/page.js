@@ -70,6 +70,18 @@ if (loading) {
       transform: 'translate(-50%, -50%)' 
     }}
     >
+      <Link href='/prices' passHref>
+      <Button variant='contained' color='primary' sx={{ 
+        minWidth: '120px',
+        backgroundColor: '#004d00',
+        '&:hover': {
+          backgroundColor: '#003300' 
+        },
+        mb: { xs: 2, sm: 0 }
+      }}>
+        About Us
+      </Button>
+    </Link>
     <Link href='/login' passHref>
       <Button variant='contained' color='primary' sx={{ 
         minWidth: '120px',
