@@ -79,7 +79,7 @@ if (loading) {
         },
         mb: { xs: 2, sm: 0 }
       }}>
-        About Us
+        Features
       </Button>
     </Link>
     <Link href='/login' passHref>
